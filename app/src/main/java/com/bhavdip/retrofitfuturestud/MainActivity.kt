@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.bhavdip.retrofitfuturestud.data.ServiceGenerator
 import com.bhavdip.retrofitfuturestud.data.apis.GitHubClient
 import com.bhavdip.retrofitfuturestud.data.model.GitHubUserRepo
 import okhttp3.OkHttpClient
@@ -27,22 +28,8 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
 
-        val httpClient = OkHttpClient.Builder()
+        val client: GitHubClient = ServiceGenerator.createService(GitHubClient::class.java)
 
-        val builder = Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
-            .addConverterFactory(
-                GsonConverterFactory.create()
-            )
-
-        val retrofit = builder
-            .client(
-                httpClient.build()
-            )
-            .build()
-
-        // Create a very simple REST adapter which points the GitHub API endpoint.
-        val client = retrofit.create(GitHubClient::class.java)
         // Fetch a list of the Github repositories.
         val call =
             client.reposForUser(user = "bhavdip99")// You can change my username with your username and see your repos in list
