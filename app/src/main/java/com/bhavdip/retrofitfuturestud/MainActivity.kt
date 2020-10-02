@@ -58,7 +58,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    companion object {
-        private val API_BASE_URL = "https://api.github.com/"
-    }
 }
